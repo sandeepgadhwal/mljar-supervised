@@ -2,6 +2,8 @@ import os
 import numpy as np
 import pandas as pd
 
+import matplotlib
+matplotlib.use("Agg")
 from matplotlib import pyplot as plt
 import scikitplot as skplt
 
