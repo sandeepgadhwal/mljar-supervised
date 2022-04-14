@@ -2120,8 +2120,8 @@ a:hover {
         beginning = ""
 
         if page_type == "main":
-            beginning += """<img src="https://raw.githubusercontent.com/mljar/visual-identity/main/media/mljar_AutomatedML.png" style="height:128px; margin-left: auto;
-margin-right: auto;display: block;"/>\n\n"""
+#             beginning += """<img src="https://raw.githubusercontent.com/mljar/visual-identity/main/media/mljar_AutomatedML.png" style="height:128px; margin-left: auto;
+# margin-right: auto;display: block;"/>\n\n"""
             if os.path.exists(os.path.join(self._results_path, "EDA")):
                 beginning += "<a onclick=\"toggleShow('EDA');toggleShow('main')\" >Automatic Exploratory Data Analysis Report</a>"
             if os.path.exists(os.path.join(self._results_path, "optuna/README.md")):
