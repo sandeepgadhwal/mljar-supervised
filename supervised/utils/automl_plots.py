@@ -15,6 +15,8 @@ import warnings
 
 warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
 
+from .utils import arcpy_localization_helper
+
 
 class AutoMLPlots:
 
@@ -30,9 +32,9 @@ class AutoMLPlots:
             results_path, AutoMLPlots.features_heatmap_fname
         )
         if os.path.exists(features_plot_path):
-            fout.write("\n\n### Features Importance\n")
+            fout.write(f"\n\n### { arcpy_localization_helper('Features Importance', 0) } \n")
             fout.write(
-                f"![features importance across models]({AutoMLPlots.features_heatmap_fname})\n\n"
+                f"![{ arcpy_localization_helper('features importance across models', 0) }]({AutoMLPlots.features_heatmap_fname})\n\n"
             )
 
         AutoMLPlots.models_correlation(results_path, models)
@@ -41,9 +43,9 @@ class AutoMLPlots:
             results_path, AutoMLPlots.correlation_heatmap_fname
         )
         if os.path.exists(correlation_plot_path):
-            fout.write("\n\n### Spearman Correlation of Models\n")
+            fout.write(f"\n\n### { arcpy_localization_helper('Spearman Correlation of Models', 0) } \n")
             fout.write(
-                f"![models spearman correlation]({AutoMLPlots.correlation_heatmap_fname})\n\n"
+                f"![{ arcpy_localization_helper('models spearman correlation', 0) }]({AutoMLPlots.correlation_heatmap_fname})\n\n"
             )
 
     @staticmethod
@@ -79,10 +81,10 @@ class AutoMLPlots:
             mfi = mfi.sort_values(by="m", ascending=False)
             mfi = mfi.drop("m", axis=1)
 
-            title = "Feature importance"
+            title = arcpy_localization_helper("Feature importance", 0)
             if mfi.shape[0] > 25:
                 mfi = mfi.head(25)
-                title = "Top-25 important features"
+                title = arcpy_localization_helper("Top-25 important features", 0)
 
             fig, ax = plt.subplots(1, 1, figsize=(10, 9))
 
@@ -156,7 +158,7 @@ class AutoMLPlots:
             ax.set_xticklabels(names, rotation=90)
             ax.set_yticks(y_tick_marks)
             ax.set_yticklabels(names)
-            ax.set_title("Spearman Correlation of Models")
+            ax.set_title(arcpy_localization_helper("Spearman Correlation of Models", 0))
 
             plt.tight_layout(pad=2.0)
             plot_path = os.path.join(
