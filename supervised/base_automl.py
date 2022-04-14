@@ -1220,11 +1220,11 @@ class BaseAutoML(BaseEstimator, ABC):
             ldb.insert(loc=0, column="Best model", value="")
             ldb.loc[
                 ldb.name == self._best_model.get_name(), "Best model"
-            ] = "**the best**"
+            ] = f"**{ arcpy_localization_helper('the best', 260107) }**"
             ldb["name"] = [f"[{m}]({m}/README.md)" for m in ldb["name"].values]
 
             with open(os.path.join(self._results_path, "README.md"), "w") as fout:
-                fout.write(f"# AutoML Leaderboard\n\n")
+                fout.write(f"# AutoML { arcpy_localization_helper('Leaderboard', 260106) }\n\n")
                 fout.write(tabulate(ldb.values, ldb.columns, tablefmt="pipe"))
                 LeaderboardPlots.compute(ldb, self._results_path, fout)
 

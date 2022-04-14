@@ -15,6 +15,8 @@ import matplotlib.colors as mcolors
 
 MY_COLORS = list(mcolors.TABLEAU_COLORS.values())
 
+from .utils import arcpy_localization_helper
+
 
 class LearningCurves:
 

@@ -14,6 +14,8 @@ import warnings
 
 warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
 
+from .utils import arcpy_localization_helper
+
 
 class LeaderboardPlots:
 

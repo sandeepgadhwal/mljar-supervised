@@ -529,9 +529,9 @@ class ModelFramework:
             self._ml_task, self.learner_params["model_type"]
         )
         short_name = self.learner_params["model_type"]
-        desc = f"# Summary of {self.get_name()}\n\n"
+        desc = f"# { arcpy_localization_helper('Summary of', 260108) } {self.get_name()}\n\n"
 
-        desc += "[<< Go back](../README.md)\n\n"
+        desc += f"[<< { arcpy_localization_helper('Go back', 260090) }](../README.md)\n\n"
 
         if long_name == short_name:
             desc += f"\n## {short_name}\n"
@@ -541,13 +541,13 @@ class ModelFramework:
             if k in ["model_type", "ml_task", "seed"]:
                 continue
             desc += f"- **{k}**: {v}\n"
-        desc += "\n## Validation\n"
+        desc += f"\n## { arcpy_localization_helper('Validation', 260109) }\n"
         for k, v in self.validation_params.items():
             if "path" not in k:
                 desc += f" - **{k}**: {v}\n"
-        desc += "\n## Optimized metric\n"
+        desc += f"\n## { arcpy_localization_helper('Optimized metric', 260110) }\n"
         desc += f"{self.get_metric_name()}\n"
-        desc += "\n## Training time\n"
+        desc += f"\n## { arcpy_localization_helper('Training time', 260111) }\n"
         desc += f"\n{np.round(self.train_time,1)} seconds\n"
         return desc
 
