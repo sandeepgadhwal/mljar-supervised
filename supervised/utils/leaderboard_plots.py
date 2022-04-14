@@ -14,6 +14,8 @@ import warnings
 
 warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
 
+from .utils import arcpy_localization_helper
+
 
 class LeaderboardPlots:
 
@@ -27,16 +29,18 @@ class LeaderboardPlots:
         # Scatter plot
         plt.figure(figsize=(10, 7))
         plt.plot(ldb.metric_value, "*")
-        plt.xlabel("#Iteration")
+        plt.xlabel(f"#{ arcpy_localization_helper('Iteration', 260101) }")
         plt.ylabel(ldb.metric_type.iloc[0])
-        plt.title("AutoML Performance")
+        plt.title(f"AutoML { arcpy_localization_helper('Performance', 260102) }")
         plt.tight_layout(pad=2.0)
         plot_path = os.path.join(model_path, LeaderboardPlots.performance_fname)
         plt.savefig(plot_path)
         plt.close("all")
 
-        fout.write("\n\n### AutoML Performance\n")
-        fout.write(f"![AutoML Performance]({LeaderboardPlots.performance_fname})")
+        fout.write(
+            f"\n\n### AutoML { arcpy_localization_helper('Performance', 260102) }\n"
+        )
+        fout.write(f"![AutoML { arcpy_localization_helper('Performance', 260102) }]({LeaderboardPlots.performance_fname})")
 
         # Boxplot
         by = "model_type"
@@ -56,7 +60,9 @@ class LeaderboardPlots:
         plt.savefig(plot_path)
         plt.close("all")
 
-        fout.write("\n\n### AutoML Performance Boxplot\n")
         fout.write(
-            f"![AutoML Performance Boxplot]({LeaderboardPlots.performance_boxplot_fname})"
+            f"\n\n### AutoML { arcpy_localization_helper('Performance Boxplot', 260103) }\n"
+        )
+        fout.write(
+            f"![AutoML { arcpy_localization_helper('Performance Boxplot', 260103) }]({LeaderboardPlots.performance_boxplot_fname})"
         )

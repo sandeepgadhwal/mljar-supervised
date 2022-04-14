@@ -38,6 +38,8 @@ from supervised.utils.common import construct_learner_name, get_fold_repeat_cnt
 from supervised.utils.additional_plots import AdditionalPlots
 from tabulate import tabulate
 
+from .utils import arcpy_localization_helper
+
 
 class AdditionalMetrics:
     @staticmethod
@@ -303,8 +305,12 @@ class AdditionalMetrics:
 
     @staticmethod
     def add_learning_curves(fout):
-        fout.write("\n\n## Learning curves\n")
-        fout.write(f"![Learning curves]({LearningCurves.output_file_name})")
+        fout.write(
+            f"\n\n## { arcpy_localization_helper('Learning curves', 260088) }\n"
+        )
+        fout.write(
+            f"![{ arcpy_localization_helper('Learning curves', 260088) }]({LearningCurves.output_file_name})"
+        )
 
     @staticmethod
     def save_binary_classification(
@@ -316,11 +322,11 @@ class AdditionalMetrics:
 
         with open(os.path.join(model_path, "README.md"), "w", encoding="utf-8") as fout:
             fout.write(model_desc)
-            fout.write("\n## Metric details\n{}\n\n".format(max_metrics.to_markdown()))
             fout.write(
-                "\n## Confusion matrix (at threshold={})\n{}".format(
-                    np.round(threshold, 6), confusion_matrix.to_markdown()
-                )
+                f"\n## { arcpy_localization_helper('Metric details', 260091) }\n{ max_metrics.to_markdown() }\n\n"
+            )
+            fout.write(
+                f"\n## { arcpy_localization_helper('Confusion matrix', 260073) } ({ arcpy_localization_helper('at threshold', 260089) }={np.round(threshold, 6)})\n{confusion_matrix.to_markdown()}"
             )
             AdditionalMetrics.add_learning_curves(fout)
             AdditionalMetrics.add_tree_viz(fout, model_path, fold_cnt, repeat_cnt)
@@ -338,7 +344,7 @@ class AdditionalMetrics:
             )
             AdditionalMetrics.add_shap_binary(fout, model_path, fold_cnt, repeat_cnt)
 
-            fout.write("\n\n[<< Go back](../README.md)\n")
+            fout.write(f"\n\n[<< { arcpy_localization_helper('Go back', 260090) }](../README.md)\n")
 
     @staticmethod
     def save_multiclass_classification(
@@ -349,9 +355,11 @@ class AdditionalMetrics:
 
         with open(os.path.join(model_path, "README.md"), "w", encoding="utf-8") as fout:
             fout.write(model_desc)
-            fout.write("\n### Metric details\n{}\n\n".format(max_metrics.to_markdown()))
             fout.write(
-                "\n## Confusion matrix\n{}".format(confusion_matrix.to_markdown())
+                f"\n### { arcpy_localization_helper('Metric details', 260091) }\n{max_metrics.to_markdown()}\n\n"
+            )
+            fout.write(
+                f"\n## { arcpy_localization_helper('Confusion matrix', 260073) }\n{confusion_matrix.to_markdown()}"
             )
             AdditionalMetrics.add_learning_curves(fout)
             AdditionalMetrics.add_tree_viz(fout, model_path, fold_cnt, repeat_cnt)
@@ -371,7 +379,7 @@ class AdditionalMetrics:
                 fout, model_path, fold_cnt, repeat_cnt
             )
 
-            fout.write("\n\n[<< Go back](../README.md)\n")
+            fout.write(f"\n\n[<< { arcpy_localization_helper('Go back', 260090) }](../README.md)\n")
 
     @staticmethod
     def save_regression(
@@ -381,9 +389,7 @@ class AdditionalMetrics:
         with open(os.path.join(model_path, "README.md"), "w", encoding="utf-8") as fout:
             fout.write(model_desc)
             fout.write(
-                "\n### Metric details:\n{}\n\n".format(
-                    tabulate(max_metrics.values, max_metrics.columns, tablefmt="pipe")
-                )
+                f"\n### { arcpy_localization_helper('Metric details', 260091) }:\n{ tabulate(max_metrics.values, max_metrics.columns, tablefmt='pipe') }\n\n"
             )
             AdditionalMetrics.add_learning_curves(fout)
             AdditionalMetrics.add_tree_viz(fout, model_path, fold_cnt, repeat_cnt)
@@ -403,7 +409,7 @@ class AdditionalMetrics:
                 fout, model_path, fold_cnt, repeat_cnt
             )
 
-            fout.write("\n\n[<< Go back](../README.md)\n")
+            fout.write(f"\n\n[<< { arcpy_localization_helper('Go back', 260090) }](../README.md)\n")
 
     @staticmethod
     def add_linear_coefs(fout, model_path, fold_cnt, repeat_cnt):
@@ -419,7 +425,7 @@ class AdditionalMetrics:
         multiclass = df.shape[1] > 1
 
         if multiclass:
-            fout.write("\n\n## Coefficients\n")
+            fout.write(f"\n\n## { arcpy_localization_helper('Coefficients', 260092) }\n")
 
             for repeat in range(repeat_cnt):
                 repeat_str = f", repeat #{repeat+1}" if repeat_cnt > 1 else ""
@@ -428,7 +434,7 @@ class AdditionalMetrics:
                     fname = learner_name + "_coefs.csv"
                     if fname in coef_files:
                         fout.write(
-                            f"\n### Coefficients learner #{fold+1}{repeat_str}\n"
+                            f"\n### { arcpy_localization_helper('Coefficients learner', 260093) }#{fold+1}{repeat_str}\n"
                         )
                         df = pd.read_csv(os.path.join(model_path, fname), index_col=0)
                         fout.write(df.to_markdown() + "\n")
@@ -451,7 +457,7 @@ class AdditionalMetrics:
             df = df.sort_values("m", axis=0, ascending=False)
             df = df.drop("m", axis=1)
 
-            fout.write("\n\n## Coefficients\n")
+            fout.write(f"\n\n## { arcpy_localization_helper('Coefficients', 260092) }\n")
             fout.write(df.to_markdown() + "\n")
 
     @staticmethod
@@ -459,7 +465,7 @@ class AdditionalMetrics:
 
         tree_viz = [f for f in os.listdir(model_path) if "_tree.svg" in f]
         if len(tree_viz):
-            fout.write("\n\n## Decision Tree \n")
+            fout.write(f"\n\n## { arcpy_localization_helper('Decision Tree', 260094) } \n")
             for repeat in range(repeat_cnt):
                 repeat_str = f", Repeat #{repeat+1}" if repeat_cnt > 1 else ""
                 for fold in range(fold_cnt):
@@ -508,17 +514,25 @@ class AdditionalMetrics:
         # limit to max 25 features in the plot
         ax = df.head(25).plot.barh(figsize=(10, 7))
         ax.invert_yaxis()
-        ax.set_xlabel("Mean of feature importance")
+        ax.set_xlabel(
+            arcpy_localization_helper("Mean of feature importance", 260095)
+        )
         fig = ax.get_figure()
         fig.tight_layout(pad=2.0)
         if df.shape[0] > 25:
-            ax.set_title("Top-25 important features")
+            ax.set_title(
+                arcpy_localization_helper("Top-25 important features", 260072)
+            )
         else:
-            ax.set_title("Feature importance")
+            ax.set_title(
+                arcpy_localization_helper("Feature importance", 260071)
+            )
 
         fig.savefig(os.path.join(model_path, "permutation_importance.png"))
-        fout.write("\n\n## Permutation-based Importance\n")
-        fout.write(f"![Permutation-based Importance](permutation_importance.png)")
+        fout.write(
+            f"\n\n## { arcpy_localization_helper('Permutation-based Importance', 260096) }\n"
+        )
+        fout.write(f"![{ arcpy_localization_helper('Permutation-based Importance', 260096) }](permutation_importance.png)")
 
         if "random_feature" in df.index.tolist():
 
@@ -589,16 +603,26 @@ class AdditionalMetrics:
             # limit to max 25 features in the plot
             ax = df.head(25).plot.barh(figsize=(10, 7))
             ax.invert_yaxis()
-            ax.set_xlabel("mean(|SHAP value|) average impact on model output magnitude")
+            ax.set_xlabel(
+                f"mean(|SHAP value|) { arcpy_localization_helper('average impact on model output magnitude', 260097) }"
+            )
             fig = ax.get_figure()
             fig.tight_layout(pad=2.0)
             if df.shape[0] > 25:
-                ax.set_title("SHAP Top-25 important features")
+                ax.set_title(
+                    f"SHAP { arcpy_localization_helper('Top-25 important features', 260072) }"
+                )
             else:
-                ax.set_title("SHAP feature importance")
+                ax.set_title(
+                    f"SHAP { arcpy_localization_helper('feature importance', 260071) }"
+                )
             fig.savefig(os.path.join(model_path, "shap_importance.png"))
-            fout.write("\n\n## SHAP Importance\n")
-            fout.write(f"![SHAP Importance](shap_importance.png)")
+            fout.write(
+                f"\n\n## SHAP { arcpy_localization_helper('Importance', 260099) }\n"
+            )
+            fout.write(
+                f"![SHAP { arcpy_localization_helper('Importance', 260099) }](shap_importance.png)"
+            )
         except Exception as e:
             logger.error(
                 f"Exception while saving SHAP importance. {str(e)}\nContinuing ..."
@@ -614,7 +638,9 @@ class AdditionalMetrics:
             if not len(dep_plots):
                 return
 
-            fout.write("\n\n## SHAP Dependence plots\n")
+            fout.write(
+                f"\n\n## SHAP { arcpy_localization_helper('Dependence plots', 260100) }\n"
+            )
             for repeat in range(repeat_cnt):
                 repeat_str = f", Repeat {repeat+1}" if repeat_cnt > 1 else ""
                 for fold in range(fold_cnt):
@@ -635,7 +661,9 @@ class AdditionalMetrics:
             if not len(dec_plots):
                 return
 
-            fout.write("\n\n## SHAP Decision plots\n")
+            fout.write(
+                f"\n\n## SHAP { arcpy_localization_helper('Dependence plots', 260100) }\n"
+            )
             for target in [0, 1]:
                 for decision_type in ["worst", "best"]:
                     for repeat in range(repeat_cnt):
@@ -671,7 +699,9 @@ class AdditionalMetrics:
             if not len(dep_plots):
                 return
 
-            fout.write("\n\n## SHAP Dependence plots\n")
+            fout.write(
+                f"\n\n## SHAP { arcpy_localization_helper('Dependence plots', 260100) }\n"
+            )
             for repeat in range(repeat_cnt):
                 repeat_str = f", Repeat {repeat+1}" if repeat_cnt > 1 else ""
                 for fold in range(fold_cnt):
@@ -688,7 +718,9 @@ class AdditionalMetrics:
             if not len(dec_plots):
                 return
 
-            fout.write("\n\n## SHAP Decision plots\n")
+            fout.write(
+                f"\n\n## SHAP { arcpy_localization_helper('Dependence plots', 260100) }\n"
+            )
             for decision_type in ["worst", "best"]:
                 for repeat in range(repeat_cnt):
                     repeat_str = f", Repeat {repeat+1}" if repeat_cnt > 1 else ""
@@ -728,7 +760,9 @@ class AdditionalMetrics:
                 classes += ["".join(a[start_ind:])[:-4]]
             classes = np.unique(classes)
 
-            fout.write("\n\n## SHAP Dependence plots\n")
+            fout.write(
+                f"\n\n## SHAP { arcpy_localization_helper('Dependence plots', 260100) }\n"
+            )
 
             for repeat in range(repeat_cnt):
                 repeat_str = f", Repeat {repeat+1}" if repeat_cnt > 1 else ""
@@ -753,7 +787,9 @@ class AdditionalMetrics:
             if not len(dec_plots):
                 return
 
-            fout.write("\n\n## SHAP Decision plots\n")
+            fout.write(
+                f"\n\n## SHAP { arcpy_localization_helper('Dependence plots', 260100) }\n"
+            )
             for decision_type in ["worst", "best"]:
                 for sample in [0, 1, 2, 3]:
                     for repeat in range(repeat_cnt):

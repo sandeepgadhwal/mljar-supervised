@@ -2,6 +2,8 @@ import os
 import numpy as np
 import pandas as pd
 
+import matplotlib
+matplotlib.use("Agg")
 from matplotlib import pyplot as plt
 import scikitplot as skplt
 
@@ -10,6 +12,8 @@ from supervised.algorithms.registry import (
     MULTICLASS_CLASSIFICATION,
     REGRESSION,
 )
+
+from .utils import arcpy_localization_helper
 
 
 class AdditionalPlots:
@@ -25,7 +29,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": "Confusion Matrix",
+                    "title": arcpy_localization_helper("Confusion Matrix", 260073),
                     "fname": "confusion_matrix.png",
                     "figure": fig,
                 }
@@ -38,7 +42,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": "Normalized Confusion Matrix",
+                    "title": arcpy_localization_helper("Normalized Confusion Matrix", 260074),
                     "fname": "confusion_matrix_normalized.png",
                     "figure": fig,
                 }
@@ -47,14 +51,14 @@ class AdditionalPlots:
             fig = plt.figure(figsize=(10, 7))
             ax1 = fig.add_subplot(1, 1, 1)
             _ = skplt.metrics.plot_roc(target, predicted_probas, ax=ax1)
-            figures += [{"title": "ROC Curve", "fname": "roc_curve.png", "figure": fig}]
+            figures += [{"title": arcpy_localization_helper("ROC Curve", 260075), "fname": "roc_curve.png", "figure": fig}]
             #
             fig = plt.figure(figsize=(10, 7))
             ax1 = fig.add_subplot(1, 1, 1)
             _ = skplt.metrics.plot_ks_statistic(target, predicted_probas, ax=ax1)
             figures += [
                 {
-                    "title": "Kolmogorov-Smirnov Statistic",
+                    "title": arcpy_localization_helper("Kolmogorov-Smirnov Statistic", 260076),
                     "fname": "ks_statistic.png",
                     "figure": fig,
                 }
@@ -65,7 +69,7 @@ class AdditionalPlots:
             _ = skplt.metrics.plot_precision_recall(target, predicted_probas, ax=ax1)
             figures += [
                 {
-                    "title": "Precision-Recall Curve",
+                    "title": arcpy_localization_helper("Precision-Recall Curve", 260077),
                     "fname": "precision_recall_curve.png",
                     "figure": fig,
                 }
@@ -78,7 +82,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": "Calibration Curve",
+                    "title": arcpy_localization_helper("Calibration Curve", 260078),
                     "fname": "calibration_curve_curve.png",
                     "figure": fig,
                 }
@@ -89,7 +93,7 @@ class AdditionalPlots:
             _ = skplt.metrics.plot_cumulative_gain(target, predicted_probas, ax=ax1)
             figures += [
                 {
-                    "title": "Cumulative Gains Curve",
+                    "title": arcpy_localization_helper("Cumulative Gains Curve", 260098),
                     "fname": "cumulative_gains_curve.png",
                     "figure": fig,
                 }
@@ -99,7 +103,11 @@ class AdditionalPlots:
             ax1 = fig.add_subplot(1, 1, 1)
             _ = skplt.metrics.plot_lift_curve(target, predicted_probas, ax=ax1)
             figures += [
-                {"title": "Lift Curve", "fname": "lift_curve.png", "figure": fig}
+                {
+                    "title": arcpy_localization_helper("Lift Curve", 260079),
+                    "fname": "lift_curve.png",
+                    "figure": fig
+                }
             ]
 
         except Exception as e:
@@ -119,7 +127,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": "Confusion Matrix",
+                    "title": arcpy_localization_helper("Confusion Matrix", 260073),
                     "fname": "confusion_matrix.png",
                     "figure": fig,
                 }
@@ -132,7 +140,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": "Normalized Confusion Matrix",
+                    "title": arcpy_localization_helper("Normalized Confusion Matrix", 260074),
                     "fname": "confusion_matrix_normalized.png",
                     "figure": fig,
                 }
@@ -148,7 +156,7 @@ class AdditionalPlots:
             _ = skplt.metrics.plot_precision_recall(target, predicted_probas, ax=ax1)
             figures += [
                 {
-                    "title": "Precision Recall Curve",
+                    "title": arcpy_localization_helper("Precision-Recall Curve", 260077),
                     "fname": "precision_recall_curve.png",
                     "figure": fig,
                 }
@@ -172,13 +180,19 @@ class AdditionalPlots:
             ax1.scatter(
                 target[:samples], predictions[:samples], c="tab:blue", alpha=0.2
             )
-            plt.xlabel("True values")
-            plt.ylabel("Predicted values")
-            plt.title(f"Target values vs Predicted values (samples={samples})")
+            plt.xlabel(
+                arcpy_localization_helper("True values", 260080)
+            )
+            plt.ylabel(
+                arcpy_localization_helper("Predicted values", 260081)
+            )
+            plt.title(
+                f"{ arcpy_localization_helper('Target values vs Predicted values', 260082) } ({ arcpy_localization_helper('samples', 260085) }={samples})"
+            )
             plt.tight_layout(pad=5.0)
             figures += [
                 {
-                    "title": "True vs Predicted",
+                    "title": arcpy_localization_helper("True vs Predicted", 260083),
                     "fname": "true_vs_predicted.png",
                     "figure": fig,
                 }
@@ -189,9 +203,13 @@ class AdditionalPlots:
             ax1 = fig.add_subplot(1, 1, 1)
             residuals = target[:samples].values - predictions[:samples].values
             ax1.scatter(predictions[:samples], residuals, c="tab:blue", alpha=0.2)
-            plt.xlabel("Predicted values")
-            plt.ylabel("Residuals")
-            plt.title(f"Predicted values vs Residuals (samples={samples})")
+            plt.xlabel(
+                arcpy_localization_helper("Predicted values", 260081)
+            )
+            plt.ylabel(
+                arcpy_localization_helper("Residuals", 260084)
+            )
+            plt.title(f"{ arcpy_localization_helper('Predicted values vs Residuals', 260086) } ({ arcpy_localization_helper('samples', 260085) }={samples})")
             plt.tight_layout(pad=5.0)
             bb = ax1.get_position()
 
@@ -203,7 +221,7 @@ class AdditionalPlots:
 
             figures += [
                 {
-                    "title": "Predicted vs Residuals",
+                    "title": arcpy_localization_helper("Predicted vs Residuals", 260087),
                     "fname": "predicted_vs_residuals.png",
                     "figure": fig,
                 }

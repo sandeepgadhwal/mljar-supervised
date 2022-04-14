@@ -15,6 +15,8 @@ import matplotlib.colors as mcolors
 
 MY_COLORS = list(mcolors.TABLEAU_COLORS.values())
 
+from .utils import arcpy_localization_helper
+
 
 class LearningCurves:
 
@@ -116,9 +118,13 @@ class LearningCurves:
                 plt.axvline(best_iter, color=colors[fold], alpha=0.3)
 
         if trees_in_iteration is not None:
-            plt.xlabel("#Trees")
+            plt.xlabel(
+                f"#{ arcpy_localization_helper('Trees', 260104) }"
+            )
         else:
-            plt.xlabel("#Iteration")
+            plt.xlabel(
+                f"#{ arcpy_localization_helper('Iteration', 260101) }"
+            )
         plt.ylabel(metric_name)
 
         # limit number of learners in the legend
@@ -134,8 +140,10 @@ class LearningCurves:
     @staticmethod
     def plot_for_ensemble(scores, metric_name, model_path):
         plt.figure(figsize=(10, 7))
-        plt.plot(range(1, len(scores) + 1), scores, label=f"Ensemble")
-        plt.xlabel("#Iteration")
+        plt.plot(range(1, len(scores) + 1), scores, label=arcpy_localization_helper(f"Ensemble", 260105))
+        plt.xlabel(
+            f"#{ arcpy_localization_helper('Iteration', 260101) }"
+        )
         plt.ylabel(metric_name)
         plt.legend(loc="best")
         plot_path = os.path.join(model_path, LearningCurves.output_file_name)

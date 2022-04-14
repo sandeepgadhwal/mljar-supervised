@@ -51,6 +51,8 @@ from supervised.utils.data_validation import (
 )
 from supervised.utils.utils import dump_data, load_data
 
+from .utils.utils import arcpy_localization_helper
+
 logger = logging.getLogger(__name__)
 logger.setLevel(LOG_LEVEL)
 
@@ -1220,11 +1222,11 @@ class BaseAutoML(BaseEstimator, ABC):
             ldb.insert(loc=0, column="Best model", value="")
             ldb.loc[
                 ldb.name == self._best_model.get_name(), "Best model"
-            ] = "**the best**"
+            ] = f"**{ arcpy_localization_helper('the best', 260107) }**"
             ldb["name"] = [f"[{m}]({m}/README.md)" for m in ldb["name"].values]
 
             with open(os.path.join(self._results_path, "README.md"), "w") as fout:
-                fout.write(f"# AutoML Leaderboard\n\n")
+                fout.write(f"# AutoML { arcpy_localization_helper('Leaderboard', 260106) }\n\n")
                 fout.write(tabulate(ldb.values, ldb.columns, tablefmt="pipe"))
                 LeaderboardPlots.compute(ldb, self._results_path, fout)
 
@@ -2118,8 +2120,8 @@ a:hover {
         beginning = ""
 
         if page_type == "main":
-            beginning += """<img src="https://raw.githubusercontent.com/mljar/visual-identity/main/media/mljar_AutomatedML.png" style="height:128px; margin-left: auto;
-margin-right: auto;display: block;"/>\n\n"""
+#             beginning += """<img src="https://raw.githubusercontent.com/mljar/visual-identity/main/media/mljar_AutomatedML.png" style="height:128px; margin-left: auto;
+# margin-right: auto;display: block;"/>\n\n"""
             if os.path.exists(os.path.join(self._results_path, "EDA")):
                 beginning += "<a onclick=\"toggleShow('EDA');toggleShow('main')\" >Automatic Exploratory Data Analysis Report</a>"
             if os.path.exists(os.path.join(self._results_path, "optuna/README.md")):

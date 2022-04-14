@@ -25,6 +25,8 @@ from tabulate import tabulate
 
 from supervised.utils.learning_curves import LearningCurves
 
+from .utils.utils import arcpy_localization_helper
+
 
 class Ensemble:
 
@@ -405,9 +407,9 @@ class Ensemble:
             select_models_desc += [
                 {"model": selected["model"]._name, "repeat": selected["repeat"]}
             ]
-        desc = f"# Summary of {self.get_name()}\n\n"
-        desc += "[<< Go back](../README.md)\n\n"
-        desc += "\n## Ensemble structure\n"
+        desc = f"# { arcpy_localization_helper('Summary of', 260108) } {self.get_name()}\n\n"
+        desc += f"[<< { arcpy_localization_helper('Go back', 260090) }](../README.md)\n\n"
+        desc += f"\n## Ensemble { arcpy_localization_helper('structure', 260112) }\n"
         selected = pd.DataFrame(select_models_desc)
         desc += tabulate(selected.values, ["Model", "Weight"], tablefmt="pipe")
         desc += "\n"
