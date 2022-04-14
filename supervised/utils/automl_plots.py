@@ -32,7 +32,9 @@ class AutoMLPlots:
             results_path, AutoMLPlots.features_heatmap_fname
         )
         if os.path.exists(features_plot_path):
-            fout.write(f"\n\n### { arcpy_localization_helper('Features Importance', 0) } \n")
+            fout.write(
+                f"\n\n### { arcpy_localization_helper('Features Importance', 0) } \n"
+            )
             fout.write(
                 f"![{ arcpy_localization_helper('features importance across models', 0) }]({AutoMLPlots.features_heatmap_fname})\n\n"
             )
