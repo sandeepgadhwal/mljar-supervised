@@ -27,18 +27,18 @@ class LeaderboardPlots:
         # Scatter plot
         plt.figure(figsize=(10, 7))
         plt.plot(ldb.metric_value, "*")
-        plt.xlabel(f"#{ arcpy_localization_helper('Iteration', 0) }")
+        plt.xlabel(f"#{ arcpy_localization_helper('Iteration', 260101) }")
         plt.ylabel(ldb.metric_type.iloc[0])
-        plt.title(f"AutoML { arcpy_localization_helper('Performance', 0) }")
+        plt.title(f"AutoML { arcpy_localization_helper('Performance', 260102) }")
         plt.tight_layout(pad=2.0)
         plot_path = os.path.join(model_path, LeaderboardPlots.performance_fname)
         plt.savefig(plot_path)
         plt.close("all")
 
         fout.write(
-            f"\n\n### AutoML { arcpy_localization_helper('Performance', 0) }\n"
+            f"\n\n### AutoML { arcpy_localization_helper('Performance', 260102) }\n"
         )
-        fout.write(f"![AutoML { arcpy_localization_helper('Performance', 0) }]({LeaderboardPlots.performance_fname})")
+        fout.write(f"![AutoML { arcpy_localization_helper('Performance', 260102) }]({LeaderboardPlots.performance_fname})")
 
         # Boxplot
         by = "model_type"
@@ -59,8 +59,8 @@ class LeaderboardPlots:
         plt.close("all")
 
         fout.write(
-            f"\n\n### AutoML { arcpy_localization_helper('Performance Boxplot', 0) }\n"
+            f"\n\n### AutoML { arcpy_localization_helper('Performance Boxplot', 260103) }\n"
         )
         fout.write(
-            f"![AutoML { arcpy_localization_helper('Performance Boxplot', 0) }]({LeaderboardPlots.performance_boxplot_fname})"
+            f"![AutoML { arcpy_localization_helper('Performance Boxplot', 260103) }]({LeaderboardPlots.performance_boxplot_fname})"
         )

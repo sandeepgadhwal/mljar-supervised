@@ -117,11 +117,11 @@ class LearningCurves:
 
         if trees_in_iteration is not None:
             plt.xlabel(
-                f"#{ arcpy_localization_helper('Trees', 0) }"
+                f"#{ arcpy_localization_helper('Trees', 260104) }"
             )
         else:
             plt.xlabel(
-                f"#{ arcpy_localization_helper('Iteration', 0) }"
+                f"#{ arcpy_localization_helper('Iteration', 260101) }"
             )
         plt.ylabel(metric_name)
 
@@ -138,9 +138,9 @@ class LearningCurves:
     @staticmethod
     def plot_for_ensemble(scores, metric_name, model_path):
         plt.figure(figsize=(10, 7))
-        plt.plot(range(1, len(scores) + 1), scores, label=arcpy_localization_helper(f"Ensemble", 0))
+        plt.plot(range(1, len(scores) + 1), scores, label=arcpy_localization_helper(f"Ensemble", 260105))
         plt.xlabel(
-            f"#{ arcpy_localization_helper('Iteration', 0) }"
+            f"#{ arcpy_localization_helper('Iteration', 260101) }"
         )
         plt.ylabel(metric_name)
         plt.legend(loc="best")

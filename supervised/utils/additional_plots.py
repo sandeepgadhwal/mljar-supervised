@@ -27,7 +27,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": arcpy_localization_helper("Confusion Matrix", 0),
+                    "title": arcpy_localization_helper("Confusion Matrix", 260073),
                     "fname": "confusion_matrix.png",
                     "figure": fig,
                 }
@@ -40,7 +40,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": arcpy_localization_helper("Normalized Confusion Matrix", 0),
+                    "title": arcpy_localization_helper("Normalized Confusion Matrix", 260074),
                     "fname": "confusion_matrix_normalized.png",
                     "figure": fig,
                 }
@@ -49,14 +49,14 @@ class AdditionalPlots:
             fig = plt.figure(figsize=(10, 7))
             ax1 = fig.add_subplot(1, 1, 1)
             _ = skplt.metrics.plot_roc(target, predicted_probas, ax=ax1)
-            figures += [{"title": arcpy_localization_helper("ROC Curve", 0), "fname": "roc_curve.png", "figure": fig}]
+            figures += [{"title": arcpy_localization_helper("ROC Curve", 260075), "fname": "roc_curve.png", "figure": fig}]
             #
             fig = plt.figure(figsize=(10, 7))
             ax1 = fig.add_subplot(1, 1, 1)
             _ = skplt.metrics.plot_ks_statistic(target, predicted_probas, ax=ax1)
             figures += [
                 {
-                    "title": arcpy_localization_helper("Kolmogorov-Smirnov Statistic", 0),
+                    "title": arcpy_localization_helper("Kolmogorov-Smirnov Statistic", 260076),
                     "fname": "ks_statistic.png",
                     "figure": fig,
                 }
@@ -67,7 +67,7 @@ class AdditionalPlots:
             _ = skplt.metrics.plot_precision_recall(target, predicted_probas, ax=ax1)
             figures += [
                 {
-                    "title": arcpy_localization_helper("Precision-Recall Curve", 0),
+                    "title": arcpy_localization_helper("Precision-Recall Curve", 260077),
                     "fname": "precision_recall_curve.png",
                     "figure": fig,
                 }
@@ -80,7 +80,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": arcpy_localization_helper("Calibration Curve", 0),
+                    "title": arcpy_localization_helper("Calibration Curve", 260078),
                     "fname": "calibration_curve_curve.png",
                     "figure": fig,
                 }
@@ -91,7 +91,7 @@ class AdditionalPlots:
             _ = skplt.metrics.plot_cumulative_gain(target, predicted_probas, ax=ax1)
             figures += [
                 {
-                    "title": arcpy_localization_helper("Cumulative Gains Curve", 0),
+                    "title": arcpy_localization_helper("Cumulative Gains Curve", 260098),
                     "fname": "cumulative_gains_curve.png",
                     "figure": fig,
                 }
@@ -102,7 +102,7 @@ class AdditionalPlots:
             _ = skplt.metrics.plot_lift_curve(target, predicted_probas, ax=ax1)
             figures += [
                 {
-                    "title": arcpy_localization_helper("Lift Curve", 0),
+                    "title": arcpy_localization_helper("Lift Curve", 260079),
                     "fname": "lift_curve.png",
                     "figure": fig
                 }
@@ -125,7 +125,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": arcpy_localization_helper("Confusion Matrix", 0),
+                    "title": arcpy_localization_helper("Confusion Matrix", 260073),
                     "fname": "confusion_matrix.png",
                     "figure": fig,
                 }
@@ -138,7 +138,7 @@ class AdditionalPlots:
             )
             figures += [
                 {
-                    "title": arcpy_localization_helper("Normalized Confusion Matrix", 0),
+                    "title": arcpy_localization_helper("Normalized Confusion Matrix", 260074),
                     "fname": "confusion_matrix_normalized.png",
                     "figure": fig,
                 }
@@ -154,7 +154,7 @@ class AdditionalPlots:
             _ = skplt.metrics.plot_precision_recall(target, predicted_probas, ax=ax1)
             figures += [
                 {
-                    "title": arcpy_localization_helper("Precision-Recall Curve", 0),
+                    "title": arcpy_localization_helper("Precision-Recall Curve", 260077),
                     "fname": "precision_recall_curve.png",
                     "figure": fig,
                 }
@@ -179,18 +179,18 @@ class AdditionalPlots:
                 target[:samples], predictions[:samples], c="tab:blue", alpha=0.2
             )
             plt.xlabel(
-                arcpy_localization_helper("True values", 0)
+                arcpy_localization_helper("True values", 260080)
             )
             plt.ylabel(
-                arcpy_localization_helper("Predicted values", 0)
+                arcpy_localization_helper("Predicted values", 260081)
             )
             plt.title(
-                f"{ arcpy_localization_helper('Target values vs Predicted values', 0) } ({ arcpy_localization_helper('samples', 0) }={samples})"
+                f"{ arcpy_localization_helper('Target values vs Predicted values', 260082) } ({ arcpy_localization_helper('samples', 260085) }={samples})"
             )
             plt.tight_layout(pad=5.0)
             figures += [
                 {
-                    "title": arcpy_localization_helper("True vs Predicted", 0),
+                    "title": arcpy_localization_helper("True vs Predicted", 260083),
                     "fname": "true_vs_predicted.png",
                     "figure": fig,
                 }
@@ -202,12 +202,12 @@ class AdditionalPlots:
             residuals = target[:samples].values - predictions[:samples].values
             ax1.scatter(predictions[:samples], residuals, c="tab:blue", alpha=0.2)
             plt.xlabel(
-                arcpy_localization_helper("Predicted values", 0)
+                arcpy_localization_helper("Predicted values", 260081)
             )
             plt.ylabel(
-                arcpy_localization_helper("Residuals", 0)
+                arcpy_localization_helper("Residuals", 260084)
             )
-            plt.title(f"{ arcpy_localization_helper('Predicted values vs Residuals', 0) } ({ arcpy_localization_helper('samples', 0) }={samples})")
+            plt.title(f"{ arcpy_localization_helper('Predicted values vs Residuals', 260086) } ({ arcpy_localization_helper('samples', 260085) }={samples})")
             plt.tight_layout(pad=5.0)
             bb = ax1.get_position()
 
@@ -219,7 +219,7 @@ class AdditionalPlots:
 
             figures += [
                 {
-                    "title": arcpy_localization_helper("Predicted vs Residuals", 0),
+                    "title": arcpy_localization_helper("Predicted vs Residuals", 260087),
                     "fname": "predicted_vs_residuals.png",
                     "figure": fig,
                 }
