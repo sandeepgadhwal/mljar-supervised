@@ -31,7 +31,7 @@ def load_data(file_path):
     #    return pd.read_csv(file_path)
 
 
-def localize_helper(msg, id):
+def arcpy_localization_helper(msg, id):
     try:
         import arcpy
         return arcpy.GetIDMessage(id)

@@ -15,6 +15,8 @@ import matplotlib.colors as mcolors
 
 MY_COLORS = list(mcolors.TABLEAU_COLORS.values())
 
+from .utils import arcpy_localization_helper
+
 
 class LearningCurves:
 
@@ -134,7 +136,7 @@ class LearningCurves:
     @staticmethod
     def plot_for_ensemble(scores, metric_name, model_path):
         plt.figure(figsize=(10, 7))
-        plt.plot(range(1, len(scores) + 1), scores, label=f"Ensemble")
+        plt.plot(range(1, len(scores) + 1), scores, label=arcpy_localization_helper(f"Ensemble", 0))
         plt.xlabel("#Iteration")
         plt.ylabel(metric_name)
         plt.legend(loc="best")
