@@ -25,6 +25,8 @@ from tabulate import tabulate
 
 from supervised.utils.learning_curves import LearningCurves
 
+from .utils.utils import arcpy_localization_helper
+
 
 class Ensemble:
 
